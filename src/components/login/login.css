@@ -1,0 +1,12 @@
+#login{
+    padding: 2%;
+    margin-top: 5%;
+    width: fit-content;
+    justify-content: center;
+    background-color: grey;
+    border-radius: 2pt;
+}
+
+#login input{
+    margin-bottom: 5%;
+}

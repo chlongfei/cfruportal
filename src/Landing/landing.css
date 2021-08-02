@@ -1,0 +1,11 @@
+#landing{
+    padding: 5% 0;
+    text-align: center;
+    color: white;
+    background-color: black;
+    height: 100vh;
+}
+
+#auth_area{
+    margin-top:  2%;
+}
