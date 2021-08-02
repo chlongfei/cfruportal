@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import "./login.css";
 import {Form} from "react-bootstrap";
 import PropTypes from 'prop-types';
-import { Redirect } from "react-router";
 
 
 
