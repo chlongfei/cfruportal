@@ -1,3 +1,9 @@
 #Admin{
     text-align:center;
 }
+
+#Admin .module_area .module{
+    margin: 2% 0;
+    padding: 2%;
+    border: solid thin black;
+}

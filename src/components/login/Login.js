@@ -1,56 +1,48 @@
 import React, {useState} from "react";
+import {useCookies} from 'react-cookie';
+
 import "./login.css";
 import {Form} from "react-bootstrap";
-import PropTypes from 'prop-types';
 
+function validate(user, pwd){
+    const db = new Map();
+    db.set('admin', '12345');
 
-
-
+    return db.get(user) === pwd;
+}
 
 
 export default function Login(){
+    var [username,setUser] = useState("");
+    var [password,setPassword] = useState("");
 
-    var [username,setUser] = useState();
-    var [password,setPassword] = useState();
+    const [cookie, setCookie] = useCookies(["rf"]);
 
-    function authenticate(event){
-        event.preventDefault();
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify([
-        {
-            "state": "0",
-            "user": username,
-            "pass": password
-        }
-        ]);
-
-        var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-        };
-
-        fetch("https://script.google.com/macros/s/AKfycbw_LN9yaNq1MRyPAtV_nd9YzmHO_Bo1DR_cwL0RSBg4QSx69IVvMCRXA9vzLDLtapKi/exec", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-        alert("Credentials Sent");
+    function validateForm(){
+        return username.length > 0 && password.length > 0;
     }
 
+    
+
+    function handleSubmit(event){
+        event.preventDefault();
+        if(validate(username,password)){
+            setCookie("username",username,{path:"/"});
+            setCookie("auth", 1, {path:"/"});
+            window.location.reload();
+        }else{
+            alert("Invalid Credentials");
+        }
+    }
+
+    
     return(
         <div id="login">
-            <Form onSubmit={authenticate}>
+            <Form onSubmit={handleSubmit}>
                 <input type="text" placeholder="username" onChange={(e)=>setUser(e.target.value)}/><br/>
                 <input type="password" placeholder="password" onChange={(e)=>setPassword(e.target.value)}/><br/>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button type="submit" className="btn btn-primary" disabled={!validateForm()}>Login</button>
             </Form>
         </div>
     )
 }
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-  };
