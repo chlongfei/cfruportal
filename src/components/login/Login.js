@@ -22,6 +22,9 @@ export default function Login(){
         return username.length > 0 && password.length > 0;
     }
 
+    function getCookie(){
+        return cookie;
+    }
     
 
     function handleSubmit(event){
@@ -29,9 +32,10 @@ export default function Login(){
         if(validate(username,password)){
             setCookie("username",username,{path:"/"});
             setCookie("auth", 1, {path:"/"});
+            getCookie();
             window.location.reload();
         }else{
-            alert("Invalid Credentials");
+            alert("Invalid Credentials - Please try again.");
         }
     }
 
