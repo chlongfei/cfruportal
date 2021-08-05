@@ -1,0 +1,7 @@
+#schedule{
+    height: 80vh;
+}
+
+#schedule iframe{
+    overflow: hidden;
+}
